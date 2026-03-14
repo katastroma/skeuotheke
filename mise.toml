@@ -1,2 +1,2 @@
 [tools]
-cocogitto = "latest"
+"cargo:cocogitto" = "latest"
