@@ -2,7 +2,6 @@ name: Self Release
 
 on:
   workflow_dispatch:
-
   push:
     branches: [default]
     paths:
