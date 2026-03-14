@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.0.2 - 2026-03-14
+#### Bug Fixes
+- include helm dependency build - (17b2aae) - Nathan Blair
+#### Miscellaneous Chores
+- correct cocogitto tool backend - (15cf974) - Nathan Blair
+
+- - -
+
 ## 0.0.1 - 2026-03-14
 #### Continuous Integration
 - make packages optional - (e21103c) - Nathan Blair
