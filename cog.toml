@@ -1,7 +1,5 @@
 from_latest_tag = false
 
-tag_prefix = "v"
-
 [commit_types.ci]
 bump_patch = true
 

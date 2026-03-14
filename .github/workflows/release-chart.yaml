@@ -15,6 +15,9 @@ on:
         description: Path to the chart directory (e.g., ., gateway)
         default: '.'
         type: string
+      package_name:
+        description: Cocogitto package name for monorepo versioning (omit for single-chart repos)
+        type: string
       registry:
         description: OCI registry path (e.g., oci://ghcr.io/katastroma-platform/phortion)
         required: true
@@ -29,6 +32,9 @@ on:
         description: Path to the chart directory (e.g., ., gateway)
         default: '.'
         type: string
+      package_name:
+        description: Cocogitto package name for monorepo versioning (omit for single-chart repos)
+        type: string
       registry:
         description: OCI registry path (e.g., oci://ghcr.io/katastroma-platform/phortion)
         required: true
@@ -41,6 +47,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      PACKAGE_FLAG: ${{ inputs.package_name && format('--package {0}', inputs.package_name) || '' }}
     outputs:
       version: ${{ steps.version.outputs.version }}
     concurrency:
@@ -68,11 +76,11 @@ jobs:
         uses: jdx/mise-action@v4
 
       - name: Version Bump
-        run: cog bump --auto --package ${{ inputs.chart_name }}
+        run: cog bump --auto ${{ env.PACKAGE_FLAG }}
 
       - name: Get Version
         id: version
-        run: echo "version=$(cog get-version --package ${{ inputs.chart_name }})" >> $GITHUB_OUTPUT
+        run: echo "version=$(cog get-version ${{ env.PACKAGE_FLAG }})" >> $GITHUB_OUTPUT
 
       - name: Package Chart
         run: helm package --version ${{ steps.version.outputs.version }} ${{ inputs.chart_path }}
@@ -92,4 +100,4 @@ jobs:
         run: git push
 
       - name: Push release tag
-        run: git push origin ${{ inputs.chart_name }}-${{ steps.version.outputs.version }}
+        run: git push origin $(git describe --tags --abbrev=0)

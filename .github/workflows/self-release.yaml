@@ -33,14 +33,18 @@ jobs:
         id: version
         run: echo "version=$(cog get-version)" >> $GITHUB_OUTPUT
 
+      - name: Get floating tag
+        id: floating
+        run: echo "tag=v$(cog get-version | cut -d. -f1)" >> $GITHUB_OUTPUT
+
       - name: Push bump commit
         run: git push
 
       - name: Push release tag
-        run: git push origin v${{ steps.version.outputs.version }}
+        run: git push origin $(git describe --tags --abbrev=0)
 
       - name: Update floating major version tag
-        run: git tag -f v$(echo ${{ steps.version.outputs.version }} | cut -d. -f1)
+        run: git tag -f ${{ steps.floating.outputs.tag }}
 
       - name: Push floating tag
-        run: git push origin v$(echo ${{ steps.version.outputs.version }} | cut -d. -f1) --force
+        run: git push origin ${{ steps.floating.outputs.tag }} --force
