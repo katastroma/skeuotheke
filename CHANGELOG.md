@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.0.1 - 2026-03-14
+#### Continuous Integration
+- make packages optional - (e21103c) - Nathan Blair
+- remove some unnecessary whitespace in self workflow - (3eeab51) - Nathan Blair
+#### Miscellaneous Chores
+- (**version**) v0.0.1 - (11c97a3) - nathanblair
+- include mise config - (169a079) - Nathan Blair
+- initial commit - (a9ee22b) - Nathan Blair
+
+- - -
+
 ## v0.0.1 - 2026-03-14
 #### Continuous Integration
 - remove some unnecessary whitespace in self workflow - (3eeab51) - Nathan Blair
