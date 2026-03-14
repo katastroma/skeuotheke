@@ -1,0 +1,23 @@
+from_latest_tag = false
+
+tag_prefix = "v"
+
+[commit_types.ci]
+bump_patch = true
+
+[commit_types.perf]
+bump_patch = true
+
+[commit_types.refactor]
+bump_patch = true
+
+[commit_types.chore]
+bump_patch = true
+
+# [git_hooks]
+
+[git_hooks.commit-msg]
+script = """#!/bin/sh
+set -e
+cog verify --file $1
+"""

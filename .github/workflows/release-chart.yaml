@@ -1,0 +1,95 @@
+name: Release Chart
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: Repository with the chart
+        required: true
+        type: string
+      chart_name:
+        description: Chart name for versioning, tagging, and artifact (e.g., gateway, thalamos)
+        required: true
+        type: string
+      chart_path:
+        description: Path to the chart directory (e.g., ., gateway)
+        default: '.'
+        type: string
+      registry:
+        description: OCI registry path (e.g., oci://ghcr.io/katastroma-platform/phortion)
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      chart_name:
+        description: Chart name for versioning, tagging, and artifact (e.g., gateway, thalamos)
+        required: true
+        type: string
+      chart_path:
+        description: Path to the chart directory (e.g., ., gateway)
+        default: '.'
+        type: string
+      registry:
+        description: OCI registry path (e.g., oci://ghcr.io/katastroma-platform/phortion)
+        required: true
+        type: string
+    outputs:
+      version:
+        description: The bumped version
+        value: ${{ jobs.release.outputs.version }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    concurrency:
+      cancel-in-progress: false
+      group: release-charts
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ inputs.repository || github.repository }}
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name '${{ github.actor }}'
+          git config user.email '${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com'
+
+      - name: Pull any changes
+        run: git pull --rebase
+
+      - name: Setup mise
+        uses: jdx/mise-action@v4
+
+      - name: Version Bump
+        run: cog bump --auto --package ${{ inputs.chart_name }}
+
+      - name: Get Version
+        id: version
+        run: echo "version=$(cog get-version --package ${{ inputs.chart_name }})" >> $GITHUB_OUTPUT
+
+      - name: Package Chart
+        run: helm package --version ${{ steps.version.outputs.version }} ${{ inputs.chart_path }}
+
+      - name: Login to Registry
+        run: |
+          echo "${{ github.token }}" | \
+          helm registry login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Push Chart
+        run: |
+          helm push \
+            ${{ inputs.chart_name }}-${{ steps.version.outputs.version }}.tgz \
+            ${{ inputs.registry }}
+
+      - name: Push bump commit
+        run: git push
+
+      - name: Push release tag
+        run: git push origin ${{ inputs.chart_name }}-${{ steps.version.outputs.version }}
