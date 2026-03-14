@@ -82,6 +82,9 @@ jobs:
         id: version
         run: echo "version=$(cog get-version ${{ env.PACKAGE_FLAG }})" >> $GITHUB_OUTPUT
 
+      - name: Build Chart Dependencies
+        run: helm dependency build
+
       - name: Package Chart
         run: helm package --version ${{ steps.version.outputs.version }} ${{ inputs.chart_path }}
 
