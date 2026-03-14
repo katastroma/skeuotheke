@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.0.3 - 2026-03-14
+#### Miscellaneous Chores
+- should run more often - (63d3f80) - Nathan Blair
+- add cargo-binstall to speed up mise install - (bf91ce2) - Nathan Blair
+
+- - -
+
 ## 0.0.2 - 2026-03-14
 #### Bug Fixes
 - include helm dependency build - (17b2aae) - Nathan Blair
