@@ -3,19 +3,38 @@ name: Version
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      GH_APP_ID:
+        description: App ID of the skeuotheke app
+        type: string
+        required: true
+    secrets:
+      GH_APP_PRIVATE_KEY:
+        description: Private key of the skeuotheke app
+        required: true
+    outputs:
+      version:
+        description: Version obtained
+        value: ${{ jobs.version.outputs.version }}
+      bumped:
+        description: If the version was bumped
+        value: ${{ jobs.version.outputs.bumped }}
 
 jobs:
   version:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      bumped: ${{ steps.check.outputs.bumped }}
     steps:
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@v3
         id: app-token
         with:
-          app-id: ${{ vars.PLATFORM_GH_APP_CLIENT_ID }}
-          private-key: ${{ secrets.PLATFORM_GH_APP_PRIVATE_KEY }}
+          app-id: ${{ inputs.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
       - name: Checkout
         uses: actions/checkout@v6
@@ -32,7 +51,8 @@ jobs:
         uses: jdx/mise-action@v4
 
       - name: Version Bump
-        run: cog bump --auto
+        id: version
+        run: echo "version=$(cog bump --auto)" >> ${GITHUB_OUTPUT}
 
       - name: Check if bumped
         id: check
