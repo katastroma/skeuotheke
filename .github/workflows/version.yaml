@@ -1,12 +1,7 @@
-name: CI
+name: Version
 
 on:
   workflow_dispatch:
-  push:
-    branches: [default]
-    paths-ignore:
-      - LICENSE
-      - '**/*.md'
   workflow_call:
     inputs:
       GH_APP_ID:
