@@ -1,4 +1,4 @@
-name: Version
+name: CI
 
 on:
   workflow_dispatch:
@@ -26,7 +26,7 @@ jobs:
     permissions:
       contents: write
     outputs:
-      version: ${{ steps.version.outputs.version }}
+      version: ${{ steps.current.outputs.version }}
       bumped: ${{ steps.check.outputs.bumped }}
     steps:
       - name: Create GitHub App Token
@@ -51,8 +51,11 @@ jobs:
         uses: jdx/mise-action@v4
 
       - name: Version Bump
-        id: version
-        run: echo "version=$(cog bump --auto)" >> ${GITHUB_OUTPUT}
+        run: cog bump --auto
+
+      - name: Current Version
+        id: current
+        run: echo "version=$(cog -v get-version)" >> "${GITHUB_OUTPUT}"
 
       - name: Check if bumped
         id: check
