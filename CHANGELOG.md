@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.1.0 - 2026-03-18
+#### Features
+- add versioning workflow - (85b513c) - Nathan Blair
+#### Miscellaneous Chores
+- update org URL - (fc349ba) - Nathan Blair
+- don't bump on as many commits - (fce425b) - Nathan Blair
+
+- - -
+
 ## 0.0.4 - 2026-03-15
 #### Bug Fixes
 - use chart path when helm dependency building - (e1bf928) - Nathan Blair
