@@ -2,6 +2,22 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.2.0 - 2026-03-18
+#### Features
+- test self release - (b5bb88e) - Nathan Blair
+#### Documentation
+- add some TODO work - (8f532b5) - Nathan Blair
+#### Continuous Integration
+- keep version workflow as a workflow_call - (0ee65d3) - Nathan Blair
+- can't dogfood with using repo's own variables - (45ee734) - Nathan Blair
+- dogfoot version workflow - (626ebc1) - Nathan Blair
+- fix version output in version workflow - (bc20706) - Nathan Blair
+- add explicit inputs for required params - (f37dc66) - Nathan Blair
+#### Miscellaneous Chores
+- add license - (a89317d) - Nathan Blair
+
+- - -
+
 ## 0.1.0 - 2026-03-18
 #### Features
 - add versioning workflow - (85b513c) - Nathan Blair
