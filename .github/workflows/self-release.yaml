@@ -3,11 +3,9 @@ name: Self Release
 on:
   workflow_dispatch:
   push:
-    branches: [default]
-    paths-ignore:
-      - CHANGELOG.md
-      - LICENSE
-      - README.md
+    tags:
+      - '*.*.*'
+      - '!v*'
 
 jobs:
   release:
@@ -18,32 +16,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          fetch-depth: 0
-
-      - name: Configure git
-        run: |
-          git config user.name '${{ github.actor }}'
-          git config user.email '${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com'
-
-      - name: Setup mise
-        uses: jdx/mise-action@v4
-
-      - name: Version Bump
-        run: cog bump --auto
-
-      - name: Get Version
-        id: version
-        run: echo "version=$(cog get-version)" >> $GITHUB_OUTPUT
+          ref: ${{ github.ref_name }}
 
       - name: Get floating tag
         id: floating
-        run: echo "tag=v$(cog get-version | cut -d. -f1)" >> $GITHUB_OUTPUT
-
-      - name: Push bump commit
-        run: git push
-
-      - name: Push release tag
-        run: git push origin $(git describe --tags --abbrev=0)
+        run: echo "tag=v$(echo "${{ github.ref_name }}" | cut -d. -f1)" >> $GITHUB_OUTPUT
 
       - name: Update floating major version tag
         run: git tag -f ${{ steps.floating.outputs.tag }}
