@@ -19,7 +19,7 @@ on:
         description: Cocogitto package name for monorepo versioning (omit for single-chart repos)
         type: string
       registry:
-        description: OCI registry path (e.g., oci://ghcr.io/katastroma-platform/phortion)
+        description: OCI registry path (e.g., oci://ghcr.io/katastroma/phortion)
         required: true
         type: string
   workflow_call:
@@ -36,7 +36,7 @@ on:
         description: Cocogitto package name for monorepo versioning (omit for single-chart repos)
         type: string
       registry:
-        description: OCI registry path (e.g., oci://ghcr.io/katastroma-platform/phortion)
+        description: OCI registry path (e.g., oci://ghcr.io/katastroma/phortion)
         required: true
         type: string
     outputs:
