@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.4.0 - 2026-03-21
+#### Features
+- proto release workflow and actions - (8f63ca6) - Nathan Blair
+
+- - -
+
 ## 0.3.0 - 2026-03-20
 #### Features
 - (**ci**) align on align on org-wide vars and secrets - (de9e706) - Nathan Blair
