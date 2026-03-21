@@ -1,0 +1,26 @@
+name: Generate Code from Proto
+description: Generate Go code from protobuf definitions
+
+inputs:
+  ecosystem:
+    description: The language ecosystem to generate code from protos
+    default: go
+
+runs:
+  using: composite
+  steps:
+    - name: Setup mise
+      uses: jdx/mise-action@v4
+
+    - name: Get go module
+      id: mod
+      shell: bash
+      run: echo "mod=$(go -C go list -m)" >> "${GITHUB_OUTPUT}"
+
+    - name: Generate from protos
+      shell: bash
+      run: |
+        protoc -Iprotos \
+          --go_out=go --go_opt=paths=import --go_opt=module=${{ steps.mod.outputs.mod }} \
+          --go-grpc_out=go --go-grpc_opt=paths=import --go-grpc_opt=module=${{ steps.mod.outputs.mod }} \
+          protos/**/*.proto

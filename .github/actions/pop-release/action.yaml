@@ -1,0 +1,46 @@
+name: Release with a Pop Commit
+description: Create an orphan commit from generated code and push a release tag
+
+inputs:
+  ecosystem:
+    description: The language ecosystem directory to release
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Stage generated code
+      shell: bash
+      run: git add --force .
+
+    - name: Create tree from ecosystem directory
+      id: tree
+      shell: bash
+      run: |
+        TREE=$(git write-tree --prefix=${{ inputs.ecosystem }}/)
+        echo "TREE=${TREE}" >> $GITHUB_OUTPUT
+
+    - name: Configure git
+      shell: bash
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+    - name: Create orphan commit
+      id: commit
+      shell: bash
+      run: |
+        COMMIT=$(git commit-tree ${{ steps.tree.outputs.TREE }} -m "chore: generate code from protos for ${{ inputs.ecosystem }}")
+        echo "COMMIT=${COMMIT}" >> $GITHUB_OUTPUT
+
+    - name: Create release tag
+      shell: bash
+      run: git tag v${{ github.ref_name }} ${{ steps.commit.outputs.COMMIT }}
+
+    - name: Push gen commit
+      shell: bash
+      run: git push --force origin ${{ steps.commit.outputs.COMMIT }}:refs/heads/gen-${{ inputs.ecosystem }}
+
+    - name: Push release tag
+      shell: bash
+      run: git push origin v${{ github.ref_name }}
