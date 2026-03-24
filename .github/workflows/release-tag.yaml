@@ -1,0 +1,28 @@
+name: Create tagged release
+
+on:
+  workflow_call:
+    inputs:
+      release_prefix:
+        description: Prefix used when creating tag
+        type: string
+        default: v
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      TAG: ${{ inputs.release_prefix }}${{ github.ref_name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Create release tag
+        run: git tag ${{ env.TAG }}
+
+      - name: Push release tag
+        run: git push origin ${{ env.TAG }}
