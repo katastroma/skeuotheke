@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.6.0 - 2026-03-24
+#### Features
+- support proto generation through buf - (e244337) - Nathan Blair
+
+- - -
+
 ## 0.5.0 - 2026-03-24
 #### Features
 - include generic tagged release workflow - (5ebc757) - Nathan Blair
