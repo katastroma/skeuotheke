@@ -1,0 +1,17 @@
+name: Generate Code from Proto Using buf
+description: Generate Go code from protobuf definitions
+
+inputs:
+  ecosystem:
+    description: The language ecosystem to generate code from protos
+    default: go
+
+runs:
+  using: composite
+  steps:
+    - name: Setup mise
+      uses: jdx/mise-action@v4
+
+    - name: Generate from protos
+      shell: bash
+      run: buf generate

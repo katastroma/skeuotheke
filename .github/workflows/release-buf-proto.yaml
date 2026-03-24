@@ -1,0 +1,32 @@
+name: Generate Code from Proto
+
+on:
+  workflow_call:
+    inputs:
+      ecosystem:
+        description: The language ecosystem to generate code from protos
+        type: string
+        default: go
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      TAG: v${{ github.ref_name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Generate code from protos
+        uses: katastroma/skeuotheke/.github/actions/proto-buf-gen@v0
+        with:
+          ecosystem: ${{ inputs.ecosystem }}
+
+      - name: Pop release
+        uses: katastroma/skeuotheke/.github/actions/pop-release@v0
+        with:
+          ecosystem: ${{ inputs.ecosystem }}
