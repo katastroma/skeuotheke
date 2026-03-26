@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.6.1 - 2026-03-26
+#### Bug Fixes
+- (**cd**) don't trigger on generated files - (91a7512) - Nathan Blair
+
+- - -
+
 ## 0.6.0 - 2026-03-24
 #### Features
 - support proto generation through buf - (e244337) - Nathan Blair
