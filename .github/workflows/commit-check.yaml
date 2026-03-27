@@ -5,7 +5,7 @@ on:
   workflow_call:
 
 jobs:
-  cog-check:
+  commit-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
