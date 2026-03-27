@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.7.4 - 2026-03-27
+#### Bug Fixes
+- (**ci**) go CI job name needs standard - (4376074) - Nathan Blair
+- (**ci**) version-check workflow needs git configured - (84a5bd3) - Nathan Blair
+
+- - -
+
 ## 0.7.3 - 2026-03-27
 #### Bug Fixes
 - (**ci**) correct debug pattern for version info - (edd5ba9) - Nathan Blair
