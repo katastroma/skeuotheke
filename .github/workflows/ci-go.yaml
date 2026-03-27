@@ -5,7 +5,7 @@ on:
   workflow_call:
 
 jobs:
-  version:
+  go:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,11 +16,13 @@ jobs:
       - name: Setup mise
         uses: jdx/mise-action@v4
 
-      - name: go fmt
+      - run: go mod download
+
+      - name: Format check
         run: go fmt ./...
 
-      - name: go vet
-        run: go vet -diff ./...
+      - name: Lint
+        run: go vet ./...
 
-      - name: go test
+      - name: Test
         run: go test -cover ./...
