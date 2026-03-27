@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.7.1 - 2026-03-27
+#### Bug Fixes
+- (**ci**) correct CI workflow steps and names - (da20c36) - Nathan Blair
+
+- - -
+
 ## 0.7.0 - 2026-03-27
 #### Features
 - add CI workflows - (2082148) - Nathan Blair
