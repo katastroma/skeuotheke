@@ -24,28 +24,33 @@ jobs:
       - name: Setup mise
         uses: jdx/mise-action@v4
 
+      - name: Previous SHA
+        id: previous-sha
+        run: echo "sha=$(git rev-parse HEAD)" >> "${GITHUB_OUTPUT}"
+
       - name: Previous Version
-        id: previous
+        id: previous-version
         run: echo "version=$(cog -v get-version)" >> "${GITHUB_OUTPUT}"
 
       - name: Version Bump
         run: cog bump --auto
 
       - name: New Version
-        id: new
+        id: new-version
         run: echo "version=$(cog -v get-version)" >> "${GITHUB_OUTPUT}"
 
       - name: Display Version Info
         id: check
+        env:
+          PREV_VERSION: ${{ steps.previous-version.outputs.version }}
+          NEW_VERSION: ${{ steps.new-version.outputs.version }}
         run: |
-          echo "Incoming SHA: ${{ env.SHA }}"
-          echo "Current version: ${{ steps.previous.outputs.version }}"
+          echo "Previous SHA: ${{ steps.previous-sha.outputs.sha }}"
+          echo "Current version: ${{ env.PREV_VERSION }}"
+          echo "New SHA: $(git rev-parse HEAD)"
 
-          echo "Bumped SHA: $(git rev-parse HEAD)"
-          echo "New version: ${{ steps.new.outputs.version }}"
-
-          if [ "${{ steps.previous.outputs.version }}" != "${{ steps.new.outputs.version }}" ]; then
-            echo "Version bumped to: ${{ steps.new.outputs.version }}"
+          if [ "${{ env.PREV_VERSION }}" != "${{ env.NEW_VERSION }}" ]; then
+            echo "Version would be bumped to: ${{ env.NEW_VERSION }}"
           else
             echo "No version bump detected"
           fi
