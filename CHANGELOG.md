@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.7.6 - 2026-03-29
+#### Bug Fixes
+- (**ci**) fix release tag job name - (d83e8f4) - Nathan Blair
+
+- - -
+
 ## 0.7.5 - 2026-03-27
 #### Bug Fixes
 - workflow and job names (#1) - (707753b) - Nathan Blair
