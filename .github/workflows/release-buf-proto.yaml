@@ -16,15 +16,8 @@ jobs:
     env:
       TAG: v${{ github.ref_name }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.ref_name }}
-
       - name: Generate code from protos
         uses: katastroma/skeuotheke/.github/actions/proto-buf-gen@v0
-        with:
-          ecosystem: ${{ inputs.ecosystem }}
 
       - name: Pop release
         uses: katastroma/skeuotheke/.github/actions/pop-release@v0

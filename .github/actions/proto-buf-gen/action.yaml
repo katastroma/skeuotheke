@@ -1,11 +1,6 @@
 name: Generate Code from Proto Using buf
 description: Generate Go code from protobuf definitions
 
-inputs:
-  ecosystem:
-    description: The language ecosystem to generate code from protos
-    default: go
-
 runs:
   using: composite
   steps:
