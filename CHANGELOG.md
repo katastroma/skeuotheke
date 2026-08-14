@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.8.3 - 2026-08-14
+#### Bug Fixes
+- verify working directory behavior - (c3c4f0b) - Nathan Blair
+
+- - -
+
 ## 0.8.2 - 2026-08-14
 #### Bug Fixes
 - remove unused TAG - (f24ab74) - Nathan Blair
