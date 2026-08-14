@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.8.1 - 2026-08-14
+#### Bug Fixes
+- remove unused TAG - (b935706) - Nathan Blair
+
+- - -
+
 ## 0.8.0 - 2026-08-14
 #### Features
 - support setting working directory for ci-go workflow - (83b1c7f) - Nathan Blair
