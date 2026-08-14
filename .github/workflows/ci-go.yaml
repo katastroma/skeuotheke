@@ -3,10 +3,18 @@ name: Go CI
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      working_directory:
+        default: ${{ github.workspace }}
+        type: string
+        description: Working directory for go code
 
 jobs:
   go:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
