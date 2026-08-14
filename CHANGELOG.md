@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.8.0 - 2026-08-14
+#### Features
+- support setting working directory for ci-go workflow - (83b1c7f) - Nathan Blair
+
+- - -
+
 ## 0.7.8 - 2026-08-14
 #### Bug Fixes
 - update to use client-id instead of app-id - (3ee045c) - Nathan Blair
